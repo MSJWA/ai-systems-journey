@@ -20,3 +20,29 @@
 
 **What's next:**
 - requests library — call a real API, handle a failed request
+
+## 22nd July 2026 — Day 2: API calls with requests + error handling
+
+**What I did:**
+- Learned what an API actually is — interface for software to talk to
+  software, vs GUI/IDE which is for humans (restaurant/menu analogy helped)
+- Wrote a script using requests.get() to call the GitHub API
+- Learned about status codes (200 = success, 404 = not found) and used
+  an if/else to handle both cases instead of assuming it always works
+- Added a try/except around the whole thing to catch
+  requests.exceptions.ConnectionError — handles the case where there's
+  no internet at all, not just a bad response
+- Tested all 3 paths: valid username, invalid username, no internet
+
+**What confused me / what I didn't know before today:**
+- Didn't know the difference between a "bad but valid response" (404,
+  handled with if/else) and a full connection failure (no response at
+  all, handled with try/except) — different failure types need
+  different tools
+- Learned response.status_code and response.json() aren't magic — they
+  come from the response object requests.get() returns
+- Learned "response" isn't a reserved keyword, just a naming convention
+  — same as "content" yesterday
+
+**What's next:**
+- SQL fundamentals + building a basic API myself with FastAPI
