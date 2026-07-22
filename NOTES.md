@@ -46,3 +46,28 @@
 
 **What's next:**
 - SQL fundamentals + building a basic API myself with FastAPI
+
+## 22nd July 2026 — Day 2.5: Closing out Month 1-2 — context managers, JSON writing, decorators (paused)
+
+**What I did:**
+- Went back over context managers (`with` blocks) to actually understand
+  *why* they exist, not just that I'd used them — they guarantee cleanup
+  (like closing a file) even if something crashes in between
+- Learned to write JSON, not just read it — json.dump() converts a
+  Python dictionary into a real JSON file
+- Tried decorators — got the basic idea (wrapping extra behavior around
+  an existing function) but the syntax/mechanics felt like too much at
+  once, so paused it deliberately to revisit later inside FastAPI, where
+  it'll show up in real context (@app.get(...))
+
+**What confused me / what I didn't know before today:**
+- Decorators genuinely didn't click yet — noting that honestly instead
+  of pretending they did. Multiple new ideas stacked together
+  (functions as values, nested functions, @ syntax) all at once
+- Didn't know `open()` takes a second argument for read vs write mode
+  ("w") — all my file work before this defaulted to read mode without
+  me realizing there was a choice being made
+
+**What's next:**
+- Month 3-4: SQL fundamentals + building my own API with FastAPI
+- Revisit decorators once I hit @app.get(...) in FastAPI
