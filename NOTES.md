@@ -71,3 +71,39 @@
 **What's next:**
 - Month 3-4: SQL fundamentals + building my own API with FastAPI
 - Revisit decorators once I hit @app.get(...) in FastAPI
+
+## 23rd July 2026 — Day 3: FastAPI — GET, path parameters, POST + Pydantic
+
+**What I did:**
+- Installed FastAPI + uvicorn inside the venv
+- Built my first working API server with a basic GET endpoint (@app.get("/"))
+- Learned decorators properly this time, in real context — @app.get(...)
+  wraps a function with routing logic, same mechanism as the earlier
+  timer example, just doing something different
+- Added a GET endpoint with a path parameter (/greet/{name}) — hit a bug
+  where the placeholder name in the URL didn't match the function
+  parameter name, learned they have to match exactly for FastAPI to
+  connect them
+- Added a POST endpoint using Pydantic (GreetRequest class) to validate
+  incoming data — tested it with valid data (worked) and invalid data
+  like age as text (correctly rejected before my function even ran)
+- Explored /docs — FastAPI's auto-generated interactive interface for
+  testing endpoints
+
+**What confused me / what I didn't know before today:**
+- Didn't understand the actual difference between GET and POST before
+  today — GET reads/asks for info, POST sends data to be processed,
+  not about how the user triggers it
+- Realized FastAPI doesn't know or care WHO is calling it — a browser,
+  a script, or later an LLM all look identical to it. This led to a
+  real security question I raised myself: if an LLM could call my
+  endpoints as "tools," what stops it from doing something destructive?
+  Learned about permission scoping, treating LLM-read data as
+  untrusted (prompt injection), and human-in-the-loop confirmation for
+  risky actions — real, current, unsolved-ish problem in the field,
+  not just theory
+
+**What's next:**
+- SQL fundamentals
+- Then connect FastAPI to a real database, so POST requests actually
+  store data instead of just echoing it back
