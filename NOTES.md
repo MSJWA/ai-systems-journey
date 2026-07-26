@@ -107,3 +107,40 @@
 - SQL fundamentals
 - Then connect FastAPI to a real database, so POST requests actually
   store data instead of just echoing it back
+
+## 26th July 2026 — Day 4: SQL fundamentals + connecting FastAPI to a database
+
+**What I did:**
+- Learned what a database actually is and why it beats plain files for
+  searching/filtering large amounts of data
+- Used SQLite (built into Python, no server needed) to create my first
+  table (users: id, name, age)
+- Learned INSERT to add rows, and the placeholder pattern (?, ?) instead
+  of directly inserting variables into SQL text - this prevents SQL
+  injection, a real security vulnerability, so built the safe habit in
+  from day one
+- Learned SELECT to read data back, and WHERE to filter (e.g. age > 20)
+- Discovered that re-running an INSERT script duplicates data instead of
+  overwriting it - databases only add unless told otherwise, unlike
+  overwriting a file
+- Connected my existing FastAPI POST /greet endpoint to the database -
+  now submitted data is actually saved (persisted), not just echoed back
+  and forgotten
+- Verified it end-to-end: submitted data through /docs, then confirmed
+  it was really there using a separate SELECT script
+
+**What confused me / what I didn't know before today:**
+- Didn't know databases don't auto-save - had to learn connection.commit()
+  is required to actually save changes
+- Didn't realize INSERT always adds a new row rather than overwriting -
+  this caused duplicate data the first time I re-ran a script
+- Learned the real distinction between "stateless" (my original FastAPI
+  app - forgets everything after each request) and "persistent" (now,
+  with a database behind it) - this is directly related to how agent
+  memory works later on
+
+**What's next:**
+- Tier 2: raw LLM API calls, no framework
+- Eventually build a RAG pipeline by hand - now understand it's a more
+  advanced, meaning-based version of the same store-then-retrieve
+  pattern I just used with SQL
