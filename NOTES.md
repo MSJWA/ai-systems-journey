@@ -144,3 +144,38 @@
 - Eventually build a RAG pipeline by hand - now understand it's a more
   advanced, meaning-based version of the same store-then-retrieve
   pattern I just used with SQL
+
+## 27th July 2026 — Day 5: First real LLM API call
+
+**What I did:**
+- Signed up for Groq (avoided OpenAI, avoided the Anthropic free-credit
+  hunt since it wasn't showing up on my account)
+- Learned the real difference between Groq (single provider, open-weight
+  models) and OpenRouter (a gateway routing to many providers through
+  one API) - kept OpenRouter in mind for later cost/model-routing work
+- Set up a .env file properly, confirmed .gitignore covers it before
+  ever putting a real key in
+- Wrote llm_call.py: loads the API key safely, authenticates a client,
+  sends a structured request to an actual LLM, gets a real response back
+- Got my first genuine AI-generated reply from my own code - not
+  hardcoded, not a chat interface, my own script talking to a real model
+
+**What confused me / what I didn't know before today:**
+- Didn't know model names are exact, provider-defined strings you have
+  to get right (like "llama-3.3-70b-versatile") - not arbitrary labels
+- Learned max_tokens isn't just a formatting limit - it's directly tied
+  to real cost/usage, first hands-on touch of token economics
+- Realized this whole exercise used the *exact same pattern* as every
+  other API call I've made this week (GitHub, my own FastAPI endpoints)
+  - the "AI" part didn't need new mechanics, it just slotted into
+  request -> response -> extract data, same as always
+- Also learned about Hugging Face (model hosting hub, not an API
+  provider like Groq) and the real difference between fine-tuning /
+  distillation vs training a model from scratch - distillation is
+  roughly why cheaper models like DeepSeek can still be capable
+
+**What's next:**
+- Build a hand-built agent loop: a while loop where the LLM decides to
+  call one of my own functions based on its response, and the result
+  gets fed back in - the exercise that's supposed to make LangGraph
+  make sense later instead of being a black box
