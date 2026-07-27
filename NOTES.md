@@ -211,3 +211,25 @@
   instead of simple addition, to see this pattern do something my code
   genuinely couldn't do alone
 - Eventually: LangGraph, once this mechanism is second nature
+
+## 27th July 2026 — Day 6.5: Agent tool calling with a real database lookup
+
+**What I did:**
+- Rebuilt the tool-calling pattern from the add_numbers exercise, but
+  with a real, useful tool this time: find_user(name), looking someone
+  up in my actual SQLite users table from Day 4
+- Tested with a name that exists (Ali) - got real data back
+- Tested with a name that doesn't exist (Ahmed) - got a clean, handled
+  error instead of a crash, same defensive pattern as always
+
+**What confused me / what I didn't know before today:**
+- Forgot to include imports/client setup when starting the new file -
+  good reminder that each new file needs its own full setup, not just
+  the new logic being demonstrated
+- This version made the LLM's real value obvious in a way the addition
+  example didn't - my code genuinely couldn't have known "Ali" was the
+  name to look up from a casual sentence like "can you find Ali's info"
+
+**What's next:**
+- LangGraph - now that the underlying tool-calling mechanism is
+  actually understood, not a black box
