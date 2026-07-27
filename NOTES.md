@@ -179,3 +179,35 @@
   call one of my own functions based on its response, and the result
   gets fed back in - the exercise that's supposed to make LangGraph
   make sense later instead of being a black box
+
+## 27th July 2026 — Day 6: Hand-built agent — LLM tool calling
+
+**What I did:**
+- Built the actual "hand-built agent loop" exercise from Phase 0 of my
+  roadmap - the one flagged as the most important exercise in the whole
+  plan
+- Described a real Python function (add_numbers) to the LLM using a
+  structured "tools" format (name, description, parameters)
+- Learned the LLM never actually executes anything itself - it only
+  decides which tool to use and fills out a structured "request form"
+  with the right inputs; my own code is what actually runs the function
+- Tested two cases: a question needing the tool (correctly calculated
+  47+89=136), and one that didn't need it (answered normally in text)
+
+**What confused me / what I didn't know before today:**
+- Initially couldn't see the point if my code does the actual execution
+  - realized the LLM's real value isn't calculation, it's translating
+  messy natural language into a precise, structured function call
+  (which tool, which inputs) - something my code has no way to do on
+  its own
+- Understood real agents have many tools available at once, not just
+  one, and the LLM picks whichever is relevant based on the question
+- Connected this directly to MCP - what I built by hand (the tools
+  list format) is essentially a small custom version of what MCP
+  standardizes across every provider
+
+**What's next:**
+- Try a more "real" tool - maybe looking someone up in my SQL database
+  instead of simple addition, to see this pattern do something my code
+  genuinely couldn't do alone
+- Eventually: LangGraph, once this mechanism is second nature
