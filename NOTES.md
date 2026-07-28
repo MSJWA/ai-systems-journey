@@ -233,3 +233,36 @@
 **What's next:**
 - LangGraph - now that the underlying tool-calling mechanism is
   actually understood, not a black box
+
+## 28th July 2026 — Day 7: RAG — from word-matching to real embeddings
+
+**What I did:**
+- Built RAG's core pattern by hand: retrieve relevant info, inject it
+  into the prompt, then let the LLM answer using it
+- Started with crude word-overlap matching (set intersection) to
+  understand the store -> retrieve -> inject -> ask shape without new
+  dependencies
+- Corrected a misunderstanding: it's my own code doing the matching,
+  never the LLM - same "who does what" split as tool-calling
+- Tested what happens when retrieval picks the WRONG document on
+  purpose - watched the LLM correctly say "no information in context"
+  instead of making something up - real, working hallucination control
+- Upgraded to real embeddings using sentence-transformers
+  (all-MiniLM-L6-v2, from Hugging Face) - converts sentences into
+  meaning-vectors, not just words
+- Tested with a reworded question sharing zero exact words with the
+  correct document, and it still found the right match - proved this
+  is genuinely meaning-based, not just fancier word-matching
+
+**What confused me / what I didn't know before today:**
+- Initially thought the LLM does the matching in RAG - it doesn't, my
+  own code always does the retrieval, the LLM only ever generates the
+  final answer using what it's handed
+- Learned embeddings are produced by a separate, smaller, specialized
+  model - not the same LLM I've been chatting with
+- Ran a real local model (sentence-transformers) for the first time -
+  no API call, no cost, runs entirely on my own machine
+
+**What's next:**
+- LangGraph - now that both core LLM patterns (tool-calling and RAG)
+  are built and understood from scratch
