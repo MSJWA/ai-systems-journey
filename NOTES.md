@@ -305,3 +305,27 @@
   understood from scratch now, not through blind framework use
 - Ahead: MCP, then Tier 4 (the unglamorous production-hardening list -
   testing, observability, auth, rate limiting)
+
+## 29th July 2026 — Day 9: asyncio fundamentals
+
+**What I did:**
+- Learned why asyncio matters with a concrete before/after: 3 sequential
+  2-second waits = 6 seconds, done concurrently = ~2 seconds
+- Initially mismapped this to Linux's wait()/zombie process concept -
+  corrected: asyncio is single-thread cooperative multitasking (like
+  one waiter juggling multiple tables during idle wait time), not
+  multiple processes/threads running in true parallel
+- Ran async_intro.py and confirmed the real behavior: all 3 tasks start
+  immediately, all finish around the same time, total time ~2s not 6s
+
+**What confused me / what I didn't know before today:**
+- Wrongly assumed asyncio was about process-level concepts I already
+  knew from OS/Linux - it's actually a different mechanism entirely,
+  scoped to a single thread
+- Learned asyncio only helps when tasks are WAITING on something
+  external (network, timers) - it wouldn't help with heavy computation,
+  that needs real threading/multiprocessing instead, a different tool
+
+**What's next:**
+- Docker basics - closes out the last Tier 1 gap
+- Then MCP, then a real vector database (pgvector)
