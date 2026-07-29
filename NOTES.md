@@ -266,3 +266,42 @@
 **What's next:**
 - LangGraph - now that both core LLM patterns (tool-calling and RAG)
   are built and understood from scratch
+
+## 29th July 2026 — Day 8: LangGraph — multi-tool agent with real debugging
+
+**What I did:**
+- Built a working LangGraph agent, mapped every new concept back to my
+  hand-built version: @tool decorator = auto-generating the tool
+  description I used to write by hand, StateGraph/nodes/edges = the
+  same decide-execute-loop pattern as a formal graph structure
+- Added a second tool (add_numbers) alongside find_user, giving the
+  agent a real choice between tools for the first time
+- Hit a genuine bug: the LLM incorrectly tried to call find_user for a
+  "capital of Japan" question and malformed the tool-call syntax,
+  crashing the program
+- Diagnosed it correctly: not a code bug, a model reasoning failure -
+  smaller/faster models are less reliable at tool selection than
+  larger ones, a real tradeoff in the cost/capability discussion
+- Fixed it two ways: added try/except so it never crashes ugly again,
+  and made the tool's docstring more specific about when to use it,
+  which resolved the actual confusion
+- Reran all three test questions - correct tool routing across all of
+  them this time
+
+**What confused me / what I didn't know before today:**
+- Didn't know LangChain and LangGraph were different things (LangGraph
+  is built by the LangChain team, specifically for looping/branching
+  flows) - also learned about Langflow (visual builder) and Langfuse/
+  LangSmith (observability tools) as the wider ecosystem
+- Learned firsthand that tool-calling reliability varies by model size
+  - not something a tutorial would show, only showed up from testing
+  a real edge case myself
+- Realized clearer, more specific tool descriptions are a real fix for
+  agent confusion, not just a nice-to-have
+
+**What's next:**
+- Consider this the end of the core "understand the mechanism" phase -
+  tool-calling, RAG, and LangGraph are all built and genuinely
+  understood from scratch now, not through blind framework use
+- Ahead: MCP, then Tier 4 (the unglamorous production-hardening list -
+  testing, observability, auth, rate limiting)
