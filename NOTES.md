@@ -365,3 +365,36 @@
 **What's next:**
 - Tier 1 is now fully closed (async + Docker both done)
 - MCP next, then a real vector database (pgvector)
+
+## 31st July 2026 — Day 11: MCP — server, client, and a real multi-layered debugging session
+
+**What I did:**
+- Learned MCP standardizes the exact tool-description mechanism I'd
+  already built by hand 3 times - not a new concept, a standard
+  packaging of one I already understood
+- Built mcp_server.py, wrapping find_user as a real MCP tool
+- Hit a genuine, serious debugging chain: broken import path (SDK's
+  internal structure changed in a recent version), VS Code debugger
+  using a different Python interpreter than my terminal, a client
+  subprocess launching the wrong Python entirely (command="python"
+  resolving to global Python, not my venv)
+- Fixed the final root cause using sys.executable instead of the
+  string "python", to guarantee the subprocess uses the exact same
+  environment as the parent script
+- Got a genuine, correct end-to-end result: client discovers the
+  server's tools, calls find_user, gets real database data back,
+  through the actual MCP protocol
+
+**What confused me / what I didn't know before today:**
+- Learned running an MCP server alone (with no client) is supposed to
+  look like "nothing happening" - same as uvicorn, just not obvious
+  until seeing it explained
+- Learned the VS Code debugger and terminal can use different Python
+  interpreters even in the "same" project - a real, non-obvious gotcha
+- Learned sys.executable is the reliable way to guarantee a subprocess
+  uses the same Python environment as its parent, instead of trusting
+  PATH to resolve "python" correctly
+
+**What's next:**
+- A real vector database (pgvector via Postgres) - closes Tier 2 fully
+- Then Tier 4 - the production hardening list
