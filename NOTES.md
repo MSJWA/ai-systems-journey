@@ -329,3 +329,39 @@
 **What's next:**
 - Docker basics - closes out the last Tier 1 gap
 - Then MCP, then a real vector database (pgvector)
+
+## 31st July 2026 — Day 10: Docker — containerizing FastAPI, real infra crash recovery
+
+**What I did:**
+- Learned Docker's core concept: isolates the whole environment (OS,
+  Python version, dependencies), not just packages like a venv does
+- Wrote a Dockerfile for fastapi_app.py, built an image, ran it as a
+  container, and confirmed /docs loads identically to running it
+  directly - the "works on my machine" problem, actually solved
+- Hit a serious real infrastructure crash: my main requirements.txt
+  included sentence-transformers (pulls in PyTorch, multiple GB), which
+  ate almost all my remaining disk space mid-build and crashed the
+  Docker daemon itself (bus error, core dumped)
+- Diagnosed the actual cause: Docker's docker_data.vhdx virtual disk
+  had ballooned to 6.8GB from the interrupted install
+- Recovered safely: shut down WSL, deleted the corrupted virtual disk,
+  let Docker recreate a fresh one, confirmed space was back
+- Fixed the real root cause (not just retried blindly): created a
+  separate, minimal docker-requirements.txt with only what
+  fastapi_app.py actually needs, instead of my whole venv's packages
+- Rebuilt successfully, ran the container, confirmed all 3 endpoints
+  working correctly through the browser
+
+**What confused me / what I didn't know before today:**
+- Didn't know a Docker image should only include what that specific
+  service needs - bundling my whole dev environment's dependencies is
+  a real, common mistake, not just wasteful
+- Learned virtualization needs to be enabled at the BIOS level for
+  Docker/WSL to work at all - a genuine hardware-adjacent setup step
+- Got real experience diagnosing and recovering from an actual
+  infrastructure failure, not just a code bug - different, valuable
+  kind of debugging
+
+**What's next:**
+- Tier 1 is now fully closed (async + Docker both done)
+- MCP next, then a real vector database (pgvector)
