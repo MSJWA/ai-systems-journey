@@ -398,3 +398,39 @@
 **What's next:**
 - A real vector database (pgvector via Postgres) - closes Tier 2 fully
 - Then Tier 4 - the production hardening list
+
+## 01st August 2026 — Day 12: pgvector — real vector database, closing Tier 2
+
+**What I did:**
+- Installed PostgreSQL locally, then pivoted to a Docker-based pgvector
+  image (pgvector/pgvector:pg18-trixie) after hitting Windows-specific
+  extension installation friction - reused Docker skills from Day 10
+- Enabled the vector extension, created a documents table with a
+  vector(384) column matching my embedding model's exact output size
+- Learned precisely what an embedding is: a whole sentence (not words,
+  not letters) compressed into one coordinate in 384-dimensional
+  "meaning space" - distance between points = difference in meaning
+- Hit a genuine, hard-to-diagnose password authentication bug -
+  systematically ruled out wrong password, hidden whitespace, wrong
+  auth method, eventually traced to localhost resolving to IPv6 (::1)
+  vs needing explicit 127.0.0.1 for IPv4
+- Inserted real documents with real embeddings into persistent storage
+- Ran a real similarity search using pgvector's <-> operator - the
+  exact same job as my earlier np.dot() code, now done inside the
+  database itself, at real scale
+- Confirmed correct meaning-based retrieval, zero word overlap between
+  question and matched document, same proof as the original RAG
+  exercise but now backed by real, scalable, persistent infrastructure
+
+**What confused me / what I didn't know before today:**
+- Learned localhost and 127.0.0.1 aren't always interchangeable -
+  localhost can resolve to IPv6 (::1), which can behave differently
+  than explicit IPv4, a genuinely subtle networking gotcha
+- Learned docker exec bypasses network authentication (trusted
+  internal access), which is why an early "it works!" test was
+  misleading - had to specifically test with -h localhost -W to force
+  real network-style authentication for a valid comparison
+
+**What's next:**
+- Tier 2 fully closed
+- Formal agent evals (Tier 3's last piece), then Tier 4 seriously
