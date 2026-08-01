@@ -38,5 +38,6 @@ graph.add_edge("tools", "agent")
 
 app = graph.compile()
 
-result = app.invoke({"messages": [HumanMessage(content="Can you find Ali's info?")]})
-print(result["messages"][-1].content)
+if __name__ == "__main__":
+    result = app.invoke({"messages": [HumanMessage(content="Can you find Ali's info?")]})
+    print(result["messages"][-1].content)

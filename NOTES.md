@@ -434,3 +434,33 @@
 **What's next:**
 - Tier 2 fully closed
 - Formal agent evals (Tier 3's last piece), then Tier 4 seriously
+
+## 01st August 2026 — Day 13: Agent evals — closing Tier 3
+
+**What I did:**
+- Built a real eval suite for my multi-tool LangGraph agent, connecting
+  it directly to the SE testing concepts I already knew (test cases,
+  pass/fail, automated checking) - same discipline, new domain
+- Separated the eval into its own file (test_agent.py), using
+  if __name__ == "__main__" in langgraph_agent.py so importing it
+  doesn't trigger unwanted side effects - real, standard practice
+- Included the exact edge case that broke my agent weeks ago (capital
+  of Japan vs find_user) as a permanent regression test
+- Hit a real, instructive failure: my test expected exact wording
+  ("No user found") but the LLM phrased its correct answer differently
+  ("was not found") - learned this wasn't an agent bug, it was an
+  overly strict test
+- Fixed the test to check for meaning ("not found") instead of exact
+  wording, got 4/4 passing for the right reason
+
+**What confused me / what I didn't know before today:**
+- Learned LLM output correctness checks need to account for natural
+  wording variation - unlike traditional SE testing where exact output
+  matching usually works fine, this needed a looser, meaning-based check
+- Learned about "LLM-as-judge" as a more advanced eval technique for
+  cases where simple string matching isn't enough
+
+**What's next:**
+- Tier 3 fully closed
+- Tier 4 in earnest: real auth, observability, rate limiting, cost
+  monitoring, and eventually a real deployed capstone project
