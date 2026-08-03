@@ -464,3 +464,27 @@
 - Tier 3 fully closed
 - Tier 4 in earnest: real auth, observability, rate limiting, cost
   monitoring, and eventually a real deployed capstone project
+
+## 03rd August 2026 — Day 14: Real API authentication
+
+**What I did:**
+- Added real API key authentication to the /greet POST endpoint, using
+  FastAPI's Header and Depends (dependency injection) features
+- Learned the precise difference between a password (human-facing,
+  typed each time) and an API key (software-facing, stored and
+  auto-attached to every request) - same underlying concept, different
+  intended user
+- Connected this directly back to the security question I raised
+  myself months ago about LLMs calling my endpoints as tools - this is
+  the actual, working implementation of that concern, not just theory
+- Tested both cases: request without the key correctly rejected with
+  401 Unauthorized, request with the correct key correctly succeeded
+
+**What confused me / what I didn't know before today:**
+- Forgot to actually start uvicorn before testing - a recurring pattern
+  worth noting: several "nothing happened" moments this whole roadmap
+  have turned out to be a missed setup step, not an actual code bug
+
+**What's next:**
+- Rate limiting, then observability/logging, then cost awareness -
+  continuing through Tier 4

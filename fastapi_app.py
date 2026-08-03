@@ -1,9 +1,19 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Header, HTTPException
 from pydantic import BaseModel
 import sqlite3
+import os
+from dotenv import load_dotenv
+from fastapi import Depends
+
+load_dotenv()
+API_KEY = os.getenv("MY_API_KEY")
 
 app = FastAPI()
 
+def verify_api_key(x_api_key: str = Header(...)):
+    if x_api_key != API_KEY:
+        raise HTTPException(status_code=401, detail="Invalid API key")
+    
 @app.get("/")
 def read_root():
     return {"message": "Hello, world"}
@@ -20,12 +30,17 @@ class GreetRequest(BaseModel):
 #def greet_person_post(request: GreetRequest):
 #    return {"message" : f"Hello, {request.name}! You are {request.age} years old."}
 
-@app.post("/greet")
-def greet_person_post(request: GreetRequest):
-    connection = sqlite3.connect("my_database.db")
-    cursor = connection.cursor()
-    cursor.execute("INSERT INTO users (name, age) VALUES (?, ?)", (request.name, request.age))
-    connection.commit()
-    connection.close()
+#@app.post("/greet")
+#def greet_person_post(request: GreetRequest):
+#    connection = sqlite3.connect("my_database.db")
+#    cursor = connection.cursor()
+#    cursor.execute("INSERT INTO users (name, age) VALUES (?, ?)", (request.name, request.age))
+#    connection.commit()
+#    connection.close()
 
-    return {"message": f"Hello, {request.name}! You've been saved to the database."}
+#    return {"message": f"Hello, {request.name}! You've been saved to the database."}
+
+
+@app.post("/greet")
+def greet_person_post(request: GreetRequest, authorized: None = Depends(verify_api_key)):
+    return {"message": f"Hello, {request.name}!"}
