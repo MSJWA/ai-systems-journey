@@ -4,6 +4,10 @@ import sqlite3
 import os
 from dotenv import load_dotenv
 from fastapi import Depends
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+from fastapi import Request
 
 load_dotenv()
 API_KEY = os.getenv("MY_API_KEY")
@@ -41,6 +45,15 @@ class GreetRequest(BaseModel):
 #    return {"message": f"Hello, {request.name}! You've been saved to the database."}
 
 
+#@app.post("/greet")
+#def greet_person_post(request: GreetRequest, authorized: None = Depends(verify_api_key)):
+#    return {"message": f"Hello, {request.name}!"}
+
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
 @app.post("/greet")
-def greet_person_post(request: GreetRequest, authorized: None = Depends(verify_api_key)):
-    return {"message": f"Hello, {request.name}!"}
+@limiter.limit("5/minute")
+def greet_person_post(request: Request, greet_request: GreetRequest, authorized: None = Depends(verify_api_key)):
+    return {"message": f"Hello, {greet_request.name}!"}

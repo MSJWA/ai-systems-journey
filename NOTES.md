@@ -488,3 +488,26 @@
 **What's next:**
 - Rate limiting, then observability/logging, then cost awareness -
   continuing through Tier 4
+
+## 04th August 2026 — Day 15: Rate limiting
+
+**What I did:**
+- Added rate limiting to the /greet endpoint using slowapi, capping
+  requests to 5/minute per caller (identified by IP address)
+- Learned what the FastAPI Request object actually is - raw request
+  metadata (IP, headers, etc.) separate from the Pydantic-parsed body
+  data - needed here because slowapi has to identify WHO is calling,
+  which GreetRequest alone can't provide
+- Fixed a parameter naming collision (Request vs my own GreetRequest
+  parameter) by renaming mine to greet_request throughout the function
+- Tested it directly: 5 rapid requests succeeded, 6th was correctly
+  blocked with a rate-limit error
+
+**What confused me / what I didn't know before today:**
+- Didn't know a request carries more information than just the data
+  fields I explicitly defined in Pydantic - real distinction between
+  "the data I asked for" and "everything the request actually contains"
+
+**What's next:**
+- Observability/logging, then cost tracking, then a real deployment -
+  closing out Tier 4
