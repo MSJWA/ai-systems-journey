@@ -532,3 +532,26 @@
 
 **What's next:**
 - Cost tracking/awareness, then a real deployment - closing Tier 4
+
+## 04th August 2026 — Day 17: Cost tracking
+
+**What I did:**
+- Added token usage tracking to LLM calls, reading response.usage
+  (prompt_tokens, completion_tokens, total_tokens) instead of ignoring
+  this data like every previous exercise
+- Logged usage data persistently to cost_tracking.log
+- Ran the same exact prompt 5 times and observed prompt_tokens stayed
+  fixed (41 every time) while completion_tokens varied (18-27) - real,
+  concrete proof that LLM output length/wording isn't deterministic,
+  connecting back to why my eval suite needed loose matching instead
+  of exact string checks
+- Discussed reorganizing the whole repo into week-based folders, since
+  it had grown to 25+ files with no structure
+
+**What confused me / what I didn't know before today:**
+- Hadn't realized every LLM response carries real usage data by
+  default - I'd been ignoring it in every single call up to this point
+
+**What's next:**
+- Real deployment - the last major piece before pulling everything
+  into an integrated capstone project
