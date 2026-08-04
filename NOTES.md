@@ -511,3 +511,24 @@
 **What's next:**
 - Observability/logging, then cost tracking, then a real deployment -
   closing out Tier 4
+
+## 04th August 2026 — Day 16: Logging/observability basics
+
+**What I did:**
+- Added Python's built-in logging module to fastapi_app.py, writing
+  timestamped entries to app.log instead of relying on print statements
+- Logged successful greet requests as INFO, and failed auth attempts
+  as WARNING - different severity levels for different situations
+- Learned exact placement matters: config setup goes once near the top,
+  actual log calls go at the precise moment each event happens, not
+  batched or placed at the end
+- Verified entries actually appear in app.log after triggering both
+  successful and failed requests
+
+**What confused me / what I didn't know before today:**
+- Understood clearly why print() isn't real observability - it
+  vanishes, has no timestamp, and isn't there after the fact if you
+  weren't watching the terminal live when something happened
+
+**What's next:**
+- Cost tracking/awareness, then a real deployment - closing Tier 4
