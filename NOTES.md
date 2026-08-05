@@ -555,3 +555,43 @@
 **What's next:**
 - Real deployment - the last major piece before pulling everything
   into an integrated capstone project
+
+## 05th August 2026 — Day 18: Deployment — Render setup, real payment infrastructure blocker
+
+**What I did:**
+- Learned the full landscape of deployment platforms (Railway, Render,
+  Fly.io) and their actual current pricing/free-tier realities -
+  discovered my earlier assumption about Railway's free tier was
+  outdated, verified current info via search rather than trusting
+  stale knowledge
+- Chose Render specifically for its genuine, ongoing free tier
+- Learned the general dynamics of hosting/deployment: always-on
+  machine + public address + your code, and how PaaS platforms
+  (Railway/Render), bare VMs, and serverless are different points on
+  a control-vs-convenience spectrum
+- Understood the GitHub OAuth vs public-repo-URL distinction for
+  connecting a repo without full account linking
+- Correctly configured the entire deployment: root directory pointing
+  to week2_fastapi_sql, Docker environment auto-detected, environment
+  variables set up matching my local .env
+- Hit a genuine, real-world blocker at the final step: Render (via
+  Stripe) requires card verification even for the free tier, and my
+  card being a local, non-USD card meant it likely wouldn't process
+  correctly - a real payment infrastructure mismatch, not a technical
+  or conceptual gap on my end
+
+**What confused me / what I didn't know before today:**
+- Learned data center/AI infrastructure basics as a side detour -
+  energy consumption at scale, hardware layers, and how my own
+  "application layer" work relates to the much larger, heavier
+  infrastructure layers underneath it
+- Learned rendering (the graphics/computing term) and Render (the
+  company) are unrelated beyond sharing a name
+
+**What's next:**
+- Deployment concept is genuinely understood and correctly configured,
+  even though the final live push was blocked by a real payment
+  infrastructure issue, not a skill gap
+- Consider PythonAnywhere or a card-free alternative later if actually
+  needed; otherwise treat Tier 4 as substantially complete and move
+  toward the integrated capstone project

@@ -1,4 +1,4 @@
-from langgraph_agent import app
+from week3_llm_agents.langgraph_agent import app
 from langchain_core.messages import HumanMessage
 
 test_cases = [
